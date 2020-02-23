@@ -6,16 +6,32 @@
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link href="style.css" rel="stylesheet"/>
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
   </head>
   <body>
-    <div id="editor"></div>
+    <div class="sidenav">
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Clients</a>
+      <a href="#">Contact</a>
+    </div>
+    
+    <div class="main">
+      <div id="editor"></div>
+    </div>
   </body>
-  <script>
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script>window.$ = window.jQuery = require('jquery');</script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
     var ace = require('brace');
     require('brace/mode/javascript');
     require('brace/theme/monokai');
 
     var editor = ace.edit('editor');
-    editor.setTheme('ace/theme/monokai'); 
+    editor.setTheme('ace/theme/monokai');
+    editor.on("change", (e) => {
+      $('.sidenav').append('<a href="#">About</a>');
+    });
   </script>
 </html>

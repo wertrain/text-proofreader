@@ -11,7 +11,69 @@ body {
   overflow: hidden;
 }
 
-#editor {
-  width: 100%;
+/* Page content */
+.main {
+
   height: 100%;
+  margin-right: 200px; /* Same as the width of the sidenav */
 }
+.main #editor {
+
+  height: 100%;
+
+}
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.marker-highlight-warning {
+  position: absolute;
+  border-bottom: solid 1px #CCCC00;
+  z-index: 1000;
+}
+.marker-highlight-error {
+  position: absolute;
+  border-bottom: solid 1px red;
+  z-index: 1000;
+}
+.marker-highlight-info {
+  position: absolute;
+  border-bottom: solid 1px blue;
+  z-index: 1000;
+}
+
