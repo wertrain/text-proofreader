@@ -23,15 +23,30 @@
   <script src="./node_modules/jquery/dist/jquery.min.js"></script>
   <script>window.$ = window.jQuery = require('jquery');</script>
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script>
+  <script>
     var ace = require('brace');
     require('brace/mode/javascript');
     require('brace/theme/monokai');
+
+    const textlint = require("textlint");
+    const textLineEngine = new textlint.TextLintEngine({
+      configFile: '.textlintrc'
+    });
+    textLineEngine.executeOnText('実際のHTaML は圧縮されている場合がｶﾝｿｳあるため、実際のHTaML は圧縮されている場合があるため', '.txt').then(results => {
+      console.log(results);
+    })
 
     var editor = ace.edit('editor');
     editor.setTheme('ace/theme/monokai');
     editor.on("change", (e) => {
       $('.sidenav').append('<a href="#">About</a>');
+
+          // textlint を require すると、「DevTools failed to parse SourceMap: ***」という警告が出る
+      const textlint = window.textlint = require('textlint');
+      const promise = textlint.cli.execute('--config .textlintrc', '実際のHTaML は圧縮されている場合がｶﾝｿｳあるため、実際のHTaML は圧縮されている場合があるため');
+      console.log(promise.then((text)=>{
+        console.log(text);
+      }));
     });
   </script>
 </html>

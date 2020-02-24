@@ -1,20 +1,43 @@
 const { app, BrowserWindow } = require('electron')
 
+// @see https://www.npmjs.com/package/commander
+const program = require('commander');
+program
+  .option('-w, --window-mode', 'boot text-proofreader app')
+  .option('-d, --debug', 'open devtools')
+  .option('-t, --text <type>', 'proofreading text');
+program.parse(process.argv);
+
 function createWindow () {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 1280,
-    height: 800,
-    webPreferences: {
-      nodeIntegration: true
+  if (program.windowMode) {
+    // Create the browser window.
+    const win = new BrowserWindow({
+      width: 1280,
+      height: 800,
+      webPreferences: {
+        nodeIntegration: true
+      }
+    });
+
+    // and load the index.html of the app.
+    win.loadFile('index.html');
+
+    if (program.debug) {
+      // Open the DevTools.
+      win.webContents.openDevTools();
     }
-  })
-
-  // and load the index.html of the app.
-  win.loadFile('index.html')
-
-  // Open the DevTools.
-  win.webContents.openDevTools()
+  } else {
+    if (program.text) {
+      const textlint = require("textlint");
+      const textLineEngine = new textlint.TextLintEngine({
+        configFile: '.textlintrc'
+      });
+      textLineEngine.executeOnText(program.text, '.txt').then(results => {
+        process.stdout.write(JSON.stringify(results[0].messages));
+        process.exit(0);
+      })
+    }
+  }
 }
 
 // This method will be called when Electron has finished
@@ -27,7 +50,7 @@ app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
 })
 
@@ -35,7 +58,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    createWindow();
   }
 })
 
