@@ -21,22 +21,24 @@
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script>
     // textlint を require すると、「DevTools failed to parse SourceMap: ***」という警告が出る
-    const textlint = require("textlint");
-    var ace = require('brace');
-    require('brace/mode/javascript');
-    require('brace/theme/monokai');
-    var editor = ace.edit('editor');
-    editor.setTheme('ace/theme/monokai');
-    editor.on("change", (e) => {
-      const textLineEngine = new textlint.TextLintEngine({
-        configFile: '.textlintrc'
-      });
-      textLineEngine.executeOnText(e, '.txt').then(results => {
-        results[0].messages.forEach((message)=> {
-          $('.sidenav').append('<a href="#">message</a>');
+    (() => {
+      let ace = require('brace');
+      require('brace/mode/javascript');
+      require('brace/theme/monokai');
+      let editor = ace.edit('editor');
+      editor.setTheme('ace/theme/monokai');
+      editor.on("change", (e) => {
+        const textlint = require("textlint");
+        const textLineEngine = new textlint.TextLintEngine({
+          configFile: '.textlintrc'
         });
-        process.exit(0);
-      })
-    });
+        textLineEngine.executeOnText(e, '.txt').then(results => {
+          results[0].messages.forEach((message)=> {
+            $('.sidenav').append('<a href="#">message</a>');
+          });
+          process.exit(0);
+        })
+      });
+    })();
   </script>
 </html>
