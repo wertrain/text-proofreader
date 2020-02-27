@@ -11,31 +11,20 @@ body {
   overflow: hidden;
 }
 
-/* Page content */
-.main {
-
+#main {
+  width: 80%;
+  float: left;
   height: 100%;
-  margin-right: 200px; /* Same as the width of the sidenav */
 }
-.main #editor {
-
+#main #editor {
   height: 100%;
-
 }
 
-.sidenav {
-  height: 100%;
-  width: 200px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
+#sidebar {
   background-color: #111;
-  overflow-x: hidden;
-  padding-top: 20px;
+  height: 100%;
 }
-
-.sidenav a {
+#sidebar a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -43,37 +32,28 @@ body {
   display: block;
   transition: 0.3s;
 }
-
-.sidenav a:hover {
+#sidebar a:hover {
   color: #f1f1f1;
 }
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+#split-bar {
+  background-color:black;
+  height:100%;
+  float: right;
+  width: 6px;
+  cursor: col-resize;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+#sidebar .custom-scroll-table {
+  position: relative;
+  overflow: auto;
+  padding: 8px 8px 8px 8px;
 }
 
-.marker-highlight-warning {
-  position: absolute;
-  border-bottom: solid 1px #CCCC00;
-  z-index: 1000;
+#sidebar .custom-scroll-table th, td {
+  white-space: nowrap;
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  transition: 0.3s;
 }
-.marker-highlight-error {
-  position: absolute;
-  border-bottom: solid 1px red;
-  z-index: 1000;
-}
-.marker-highlight-info {
-  position: absolute;
-  border-bottom: solid 1px blue;
-  z-index: 1000;
-}
-

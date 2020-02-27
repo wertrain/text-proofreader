@@ -2,41 +2,92 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Text Proofreader</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link href="style.css" rel="stylesheet"/>
     <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
   </head>
   <body>
-    <div class="sidenav">
+    <div id="main"> 
+        <div id="split-bar"></div>
+        <div id="editor"></div>
     </div>
+    <div id="sidebar">
+      <div class="custom-scroll-table">
+      <table class="table table-bordered table-striped mb-0">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+          </tr>
+        </thead>
+        <tbody id="advicebody">
+          <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+        </tbody>
+      </table>
     
-    <div class="main">
-      <div id="editor"></div>
-    </div>
+    </div></div> 
   </body>
   <script src="./node_modules/jquery/dist/jquery.min.js"></script>
   <script>window.$ = window.jQuery = require('jquery');</script>
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script>
+    // サイドバーのリサイズ処理
+    $('#split-bar').mousedown(function (e) {
+      e.preventDefault();
+      $(document).mousemove(function (e) {
+        e.preventDefault();
+        var x = e.pageX - $('#main').offset().left;
+        $('#main').css("width", x);
+        $('#sidebar').css("margin-left", x);
+      })
+    });
+    $(document).mouseup(function (e) {
+      $(document).unbind('mousemove');
+    });
     // textlint を require すると、「DevTools failed to parse SourceMap: ***」という警告が出る
     (() => {
+      const textlint = require("textlint");
+      const textLineEngine = new textlint.TextLintEngine({
+        configFile: '.textlintrc'
+      });
       let ace = require('brace');
       require('brace/mode/javascript');
       require('brace/theme/monokai');
       let editor = ace.edit('editor');
-      editor.setTheme('ace/theme/monokai');
+      editor.setOptions({
+        newLineMode: 'auto',
+        //maxLines: Infinity,      // this is going to be very slow on large documents
+        useWrapMode: true,         // wrap text to view
+        //indentedSoftWrap: false, 
+        //behavioursEnabled: false, // disable autopairing of brackets and tags
+        showLineNumbers: true,    // hide the gutter
+        theme: "ace/theme/monokai"
+      });
       editor.on("change", (e) => {
-        const textlint = require("textlint");
-        const textLineEngine = new textlint.TextLintEngine({
-          configFile: '.textlintrc'
-        });
-        textLineEngine.executeOnText(e, '.txt').then(results => {
+        $('#advicebody').empty();
+        var code = editor.getValue();
+        textLineEngine.executeOnText(code, '.txt').then(results => {
+          console.log(results);
+          let count = 0;
           results[0].messages.forEach((message)=> {
-            $('.sidenav').append('<a href="#">message</a>');
+            $('#advicebody').append(
+              '<tr>' +
+                '<th scope="row">' + message.type + '</th>' +
+                '<td>' + message.message + '</td>' +
+                '<td>' + message.ruleId + '</td>' +
+                '<td>' + message.line + '</td>' +
+              '</tr>'
+            );
           });
-          process.exit(0);
         })
       });
     })();
