@@ -11,26 +11,23 @@
   <body>
     <div id="main"> 
         <div id="split-bar"></div>
-        <div id="editor"></div>
+        <div id="editor">
+ウィキペディア（英: Wikipedia）は、ウィキメディア財団が運営しているインターネット百科事典である[4]。コピーレフトなライセンスのもと、サイトにアクセス可能な誰もが無料で自由に編集に参加できる[4]。世界の各言語で展開されている。
+「ウィキペディア（Wikipedia）」という名前は、ウェブブラウザ上でウェブページを編集することができる「ウィキ（Wiki）」というシステムを使用した「百科事典」（英: Encyclopedia）であることに由来する造語である[5]。設立者の1人であるラリー・サンガーにより命名された[6][7]。
+        </div>
     </div>
     <div id="sidebar">
       <div class="custom-scroll-table">
       <table class="table table-bordered table-striped mb-0">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">メッセージ</th>
+            <th scope="col">行</th>
+            <th scope="col">ルール</th>
+            <th scope="col">タイプ</th>
           </tr>
         </thead>
         <tbody id="advicebody">
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
         </tbody>
       </table>
     
@@ -81,10 +78,10 @@
           results[0].messages.forEach((message)=> {
             $('#advicebody').append(
               '<tr>' +
-                '<th scope="row">' + message.type + '</th>' +
-                '<td>' + message.message + '</td>' +
-                '<td>' + message.ruleId + '</td>' +
+                '<th scope="row">' + message.message + '</th>' +
                 '<td>' + message.line + '</td>' +
+                '<td>' + message.ruleId + '</td>' +
+                '<td>' + message.type + '</td>' +
               '</tr>'
             );
           });
