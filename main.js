@@ -63,12 +63,10 @@ if (program.windowMode) {
   });
 } else {
   app.on('window-all-closed', () => {
-    // app.quit() を呼び出さなければ、ここでプロセスをキープできるかと思いきや
-    // ウィンドウが出ていないとそもそもこのイベントはコールされない
-    process.stdout.write("window-all-closed");
+    // app.quit() を呼び出さずにプロセスをキープする
   });
-
-  app.on('ready', () => {
+  app.on('activate', () => {
+    // window-all-closed 呼び出しのため、非表示の状態で起動
     const win = new BrowserWindow({ show: false });
     win.destroy();
   });
@@ -79,15 +77,13 @@ if (program.windowMode) {
       configFile: '.textlintrc'
     });
     textLineEngine.executeOnText(program.text, '.txt').then(results => {
-      //process.stdout.write(JSON.stringify(results[0].messages));
+      process.stdout.write(JSON.stringify(results[0].messages));
       process.exit(0);
     }, error => {
       process.stdout.write("textlint error occurred." + error);
       process.exit(0);
     });
-    process.stdout.write("wait for process");
   }
-  process.stdout.write("exit process");
 }
 
 // In this file you can include the rest of your app's specific main process
