@@ -66,7 +66,7 @@ if (program.windowMode) {
     // app.quit() を呼び出さずにプロセスをキープする
   });
   app.on('activate', () => {
-    // window-all-closed 呼び出しのため、非表示の状態で起動
+    // ウィンドウを作成しないと window-all-closed が呼び出されないので、非表示の状態で起動
     const win = new BrowserWindow({ show: false });
     win.destroy();
   });
