@@ -15,12 +15,14 @@
   },
   "devDependencies": {
     "electron": "^8.0.1",
-    "electron-builder": "^22.3.2"
+    "electron-builder": "^22.3.2",
+    "nexe": "^3.3.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "lint": "textlint"
+    "lint": "textlint",
+    "nexe": "nexe --output ./dist/text-proofreader --target windows-x64-10.15.3 cli.js"
   },
   "repository": {
     "type": "git",
