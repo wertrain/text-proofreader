@@ -22,7 +22,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "lint": "textlint",
-    "nexe": "nexe --output ./dist/text-proofreader --target windows-x64-10.15.3 cli.js"
+    "nexe": "nexe --output ./dist/text-proofreader --target windows-x64-10.15.3 text-proofreader.js"
   },
   "repository": {
     "type": "git",
