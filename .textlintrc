@@ -4,6 +4,6 @@
     "preset-ja-spacing": true,
     "preset-ja-technical-writing": true,
     "spellcheck-tech-word": true,
-    "textlint-rule-no-hankaku-kana": true
+    "no-hankaku-kana": true
   }
 }
