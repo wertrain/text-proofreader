@@ -5,5 +5,12 @@
     "preset-ja-technical-writing": true,
     "spellcheck-tech-word": true,
     "no-hankaku-kana": true
+    "no-double-negative-ja": true,
+    "no-dropping-the-ra": true,
+    "no-doubled-conjunctive-particle-ga": true,
+    "no-doubled-conjunction": true,
+    "no-doubled-joshi": {
+      "min_interval": 1
+    }
   }
 }
