@@ -2,7 +2,7 @@
 const program = require('commander');
 program
   .option('-t, --text <content>', 'proofreading text')
-  .option('-f, --file <filepath>', 'proofreading text from file');
+  .option('-f, --file <filepath>', 'proofreading text of file');
 program.parse(process.argv);
 
 const textlint = require("textlint");
@@ -16,9 +16,7 @@ if (program.text) {
   }, error => {
     process.stdout.write("textlint error occurred." + error);
   });
-}
-
-if (program.file) {
+} else if (program.file) {
   const fs = require("fs-extra");
   fs.readFile(program.file, "utf-8", (err, data) => {
     textLineEngine.executeOnText(data, '.txt').then(results => {
