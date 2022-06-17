@@ -17,7 +17,7 @@
     "textlint-rule-spellcheck-tech-word": "^5.0.0"
   },
   "devDependencies": {
-    "electron": "^8.2.4",
+    "electron": "^15.5.5",
     "electron-builder": "^22.3.2",
     "nexe": "^3.3.2"
   },
